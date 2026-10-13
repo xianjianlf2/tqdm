@@ -1,3 +1,5 @@
+from pytest import importorskip
+
 from tqdm.notebook import tqdm as tqdm_notebook
 
 
@@ -8,6 +10,7 @@ def test_notebook_disabled_description():
 
 
 def test_notebook_bar_style_after_early_exit():
+    importorskip('ipywidgets')
     with tqdm_notebook(range(10), display=False) as t:
         for _ in t:
             break
@@ -20,6 +23,7 @@ def test_notebook_bar_style_after_early_exit():
 
 
 def test_notebook_bar_style_reset():
+    importorskip('ipywidgets')
     with tqdm_notebook(total=10, display=False) as t:
         t.bar_style = 'warning'
         assert t.container.children[1].bar_style == 'warning'
